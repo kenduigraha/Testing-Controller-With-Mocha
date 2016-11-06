@@ -4,7 +4,7 @@
 Implement testing controller with mocha.js and chai.js
 
 ## How To Test Apps
-> ``` mocha server/test/test.index.js```
+> ``` mocha server/test/test.api.memo.js```
 
 ## Dependencies
 1. node.js

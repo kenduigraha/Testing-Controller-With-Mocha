@@ -47,6 +47,7 @@ let addMemo = (req, res) => {
   * @apiSuccess edit memo's content {String}
 */
 let editMemo = (req, res) => {
+  console.log(req.body);
   Memo.findOneAndUpdate({
     _id: req.params.id
   }, req.body, {
