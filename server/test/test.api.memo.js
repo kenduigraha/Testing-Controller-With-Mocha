@@ -41,28 +41,52 @@ const should = chai.should()
 //   })
 // })
 
-describe('#updateAMemo', () => {
+// describe('#updateAMemo', () => {
+//   /*
+//     * will update the value data of index in database
+//     * change the res.body index to test
+//     * make sure there's data in database on specific index
+//   */
+//   let index = 0
+//   it('it should update a specific memo', (done) => {
+//     chai.request('http://localhost:3000')
+//       .get('/api/memos')
+//       .end((err, res) => {
+//         // console.log(res.body[0]._id);
+//         chai.request('http://localhost:3000')
+//           .put('/api/memos/'+res.body[index]._id)
+//           .send({
+//             "content" : "new content from testing"
+//           })
+//           .end((err, respond) => {
+//             // console.log(respond.body);
+//             respond.should.have.status(200);
+//             respond.should.be.json;
+//             respond.body.content.should.equal("new content from testing")
+//             done()
+//           })
+//       })
+//   })
+// })
+
+describe('#deleteAMemo', () => {
   /*
-    * will update the value data of index in database
+    * will delete the value data of index in database
     * change the res.body index to test
     * make sure there's data in database on specific index
   */
   let index = 0
-  it('it should update a specific memo', (done) => {
+  it('it should delete a specific memo from database', (done) => {
     chai.request('http://localhost:3000')
       .get('/api/memos')
       .end((err, res) => {
-        // console.log(res.body[0]._id);
+        console.log(res.body[index].content);
         chai.request('http://localhost:3000')
-          .put('/api/memos/'+res.body[index]._id)
-          .send({
-            "content" : "new content from testing"
-          })
-          .end((err, respond) => {
-            // console.log(respond.body);
-            respond.should.have.status(200);
-            respond.should.be.json;
-            respond.body.content.should.equal("new content from testing")
+          .delete('/api/memos/'+res.body[index]._id)
+          .end((err, del_res) => {
+            del_res.should.have.status(200);
+            del_res.should.be.json;
+            del_res.body.content.should.equal(res.body[index].content)
             done()
           })
       })
