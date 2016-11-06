@@ -23,3 +23,20 @@ describe('#getAllMemos', () => {
       })
   })
 })
+
+describe('#addNewMemo', () => {
+  it('it should add new memo', (done) => {
+    chai.request('http://localhost:3000')
+      .post('/api/memos')
+      .send({
+        "content" : "content from testing"
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        // console.log(res.body.content);
+        res.body.content.should.equal("content from testing")
+        done()
+      })
+  })
+})
