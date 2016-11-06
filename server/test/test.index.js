@@ -12,3 +12,14 @@ describe('#multiple', () => {
     assert.equal(10, controller.multiple(5, 2))
   })
 })
+
+describe('#getAllMemos', () => {
+  it('it should return all list of memos in databases', (done) => {
+    chai.request('http://localhost:3000')
+      .get('/api/memos')
+      .end((err, res) => {
+        res.should.have.status(200)
+        done()
+      })
+  })
+})
