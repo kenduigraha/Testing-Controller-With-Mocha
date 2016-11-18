@@ -1,8 +1,19 @@
 const chai = require('chai')
+const expect = chai.expect
 const chaiHTTP = require('chai-http')
 chai.use(chaiHTTP)
 const should = chai.should()
 
+before(function(done){
+  chai.request('http://localhost:3000')
+    .post('/api/memos')
+    .send({
+      "content" : "dummy data"
+    })
+    .end(function(err, res){
+      done()
+    })
+})
 /*
   * will test GET /api/memos
   * should return (200) status code
@@ -13,6 +24,7 @@ describe('#getAllMemos', () => {
     chai.request('http://localhost:3000')
       .get('/api/memos')
       .end((err, res) => {
+        expect(res.body).to.be.an('array');
         res.should.be.json
         res.should.have.status(200)
         done()
@@ -75,7 +87,7 @@ describe('#updateAMemo', () => {
   })
 })
 /*
-  * will test DELETE /api/memos
+  * will test DELETE /api/memos/:id
   * should return (200) status code
   ** must be in format JSON
   ** respond content body should be same with the content value that deleted (DELETE)
@@ -91,7 +103,6 @@ describe('#deleteAMemo', () => {
     chai.request('http://localhost:3000')
       .get('/api/memos')
       .end((err, res) => {
-        console.log(res.body[index].content);
         chai.request('http://localhost:3000')
           .delete('/api/memos/'+res.body[index]._id)
           .end((err, del_res) => {
@@ -100,6 +111,27 @@ describe('#deleteAMemo', () => {
             del_res.body.content.should.equal(res.body[index].content)
             done()
           })
+      })
+  })
+})
+
+/*
+  * will test DELETE /api/memos
+  * should return (200) status code
+  ** must be in format JSON
+  ** respond content body should be same with the content value that deleted (DELETE)
+*/
+describe('#deleteAllMemo', () => {
+  /*
+    * will delete all memos database
+  */
+  it('it should delete all memos from database', (done) => {
+    chai.request('http://localhost:3000')
+      .delete('/api/memos')
+      .end((err, res) => {
+        res.body.status.ok.should.equal(1)
+        res.body.message.should.equal("delete all success")
+        done()
       })
   })
 })

@@ -15,4 +15,8 @@ router.put('/:id', controller.editMemo);
 /* Process Delete Memos. */
 router.delete('/:id', controller.deleteMemo);
 
+/* Process Delete All Memos. */
+router.delete('/', controller.deleteAllMemo);
+
+
 module.exports = router;

@@ -85,10 +85,24 @@ let deleteMemo = (req, res) => {
 let multiple = (a, b) => {
   return a * b
 }
+
+let deleteAllMemo = (req, res) => {
+  Memo.remove({}, (err, deleted_all) => {
+    if(err) res.status(400).json({'error': 'Error: ${err}'})
+    if(!deleted_all) res.status(404).json({'message': 'Failed to delete all memos'})
+
+    res.status(200).json({
+      status: deleted_all,
+      message: "delete all success"
+     })
+  })
+}
+
 module.exports = {
   allMemos  : allMemos,
   addMemo   : addMemo,
   editMemo  : editMemo,
   deleteMemo: deleteMemo,
-  multiple  : multiple
+  multiple  : multiple,
+  deleteAllMemo: deleteAllMemo
 }

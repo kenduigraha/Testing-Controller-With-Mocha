@@ -16,7 +16,7 @@ or
 
 ## How To Install Dependencies
 1. mocha.js : ```npm install --save-dev mocha```
-2. chai.js : ```npm install --save-dev chai```
+2. chai.js : ```npm install --save chai```
 
 
 ## package.json
